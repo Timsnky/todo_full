@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="partials/fragments :: layout_header">
+</head>
+
+<body>
+<header th:insert="partials/fragments :: layout_navigation"></header>
+
+<div class="container">
+    <div>
+        <a class="btn btn-success" th:href="@{/todos/create}">Add Todo</a>
+    </div>
+    <br>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3>List of TODO's</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th width="40%">Description</th>
+                    <th width="40%">Target Date</th>
+                    <th width="20%">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+<!--                <tr th:each="todo : ${todos}">-->
+<!--                    <td>${todo.description}</td>-->
+<!--                    <td>${todo.date}</td>-->
+<!--                    <td>-->
+<!--                        <a type="button" tclass="btn btn-sm btn-info" th:href="@{~/todos/edit/${todo.id}}">Update</a>-->
+<!--                        <a type="button" class="btn btn-sm btn-warning" th:href="@{todos/delete/${todo.id}}">Delete</a>-->
+<!--                    </td>-->
+<!--                </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+<div th:insert="partials/fragments :: layout_footer"></div>
+</body>
+</html>

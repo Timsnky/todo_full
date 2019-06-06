@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="partials/fragments :: layout_header">
+</head>
+
+<body>
+<header th:insert="partials/fragments :: layout_navigation"></header>
+
+<div class="container">
+    <div class="panel panel-primary jumbotron">
+        <div class="panel-heading">Dashboard</div>
+        <div class="panel-body">
+            Welcome <span sec:authentication="name"></span>!! <a href="/todos">Click here</a> to manage your todo's.
+        </div>
+    </div>
+</div>
+
+<div th:insert="partials/fragments :: layout_footer"></div>
+</body>
+</html>
