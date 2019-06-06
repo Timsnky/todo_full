@@ -10,7 +10,7 @@
 
 <div class="container">
     <div>
-        <a class="btn btn-success" th:href="@{/todos/create}">Add Todo</a>
+        <a class="btn btn-success" th:href="@{/todos/create/}">Add Todo</a>
     </div>
     <br>
     <div class="panel panel-primary">
@@ -27,14 +27,14 @@
                 </tr>
                 </thead>
                 <tbody>
-<!--                <tr th:each="todo : ${todos}">-->
-<!--                    <td>${todo.description}</td>-->
-<!--                    <td>${todo.date}</td>-->
-<!--                    <td>-->
-<!--                        <a type="button" tclass="btn btn-sm btn-info" th:href="@{~/todos/edit/${todo.id}}">Update</a>-->
-<!--                        <a type="button" class="btn btn-sm btn-warning" th:href="@{todos/delete/${todo.id}}">Delete</a>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <tr th:each="todo : ${todos}">
+                    <td th:text="${todo.description}"></td>
+                    <td th:text="${todo.targetDate}"></td>
+                    <td>
+                        <a class="btn btn-sm btn-info" th:href="@{~/todos/create/{id}(id=${todo.id})}">Update</a>
+                        <a class="btn btn-sm btn-warning" th:href="@{~/todos/delete/{id}(id=${todo.id})}">Delete</a>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>

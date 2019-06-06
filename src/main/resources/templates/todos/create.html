@@ -15,7 +15,7 @@
                 <div class="panel-heading">Add TODO</div>
 
                 <div class="panel-body">
-                    <form action="#" th:action="@{/todos/store}" th:object="${todo}" method="post">
+                    <form action="#" th:action="@{~/todos/store/{id}(id=${todo.id})}" th:object="${todo}" method="post">
                         <div th:insert="/partials/fragments :: layout_errors"></div>
                         <div class="form-group">
                             <label for="targetDate">Target Date</label>

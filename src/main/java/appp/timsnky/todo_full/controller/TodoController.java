@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/todos")
@@ -28,18 +29,22 @@ public class TodoController {
         List<Todo> todos = this.todoRepository.findAll();
 
         model.addAttribute("todos", todos);
-        
+
         return "todos/index";
     }
 
-    @GetMapping("/create")
-    public String create(Todo todo)
+    @GetMapping(value = {"/create", "/create/{id}"})
+    public String create(@PathVariable(required = false) Long id, Model model)
     {
+        Todo todo = id == null ? new Todo() : this.todoRepository.findById(id).orElse(new Todo());
+
+        model.addAttribute("todo", todo);
+
         return "todos/create";
     }
 
-    @PostMapping("/store")
-    public String store(@Valid Todo todo, BindingResult result, HttpServletRequest request)
+    @PostMapping(value = {"/store", "/store/{id}"})
+    public String store(@PathVariable(required = false) Long id, @Valid Todo todo, BindingResult result, HttpServletRequest request)
     {
         if (result.hasErrors()) {
             return "todos/create";
@@ -54,22 +59,11 @@ public class TodoController {
         return "redirect:/todos";
     }
 
-    @GetMapping("/edit/{id}")
-    public String edit(@RequestParam long id)
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id)
     {
+        this.todoRepository.deleteById(id);
 
-        return "todos/create";
-    }
-
-    @PostMapping("/update")
-    public String update()
-    {
-        return "todos/index";
-    }
-
-    @GetMapping("/delete")
-    public String delete()
-    {
-        return "todos/index";
+        return "redirect:/todos";
     }
 }
