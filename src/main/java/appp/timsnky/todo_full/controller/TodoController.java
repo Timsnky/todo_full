@@ -7,7 +7,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,8 +23,12 @@ public class TodoController {
     }
 
     @GetMapping("")
-    public String index()
+    public String index(Model model)
     {
+        List<Todo> todos = this.todoRepository.findAll();
+
+        model.addAttribute("todos", todos);
+        
         return "todos/index";
     }
 
@@ -33,15 +39,17 @@ public class TodoController {
     }
 
     @PostMapping("/store")
-    public String store(@Valid Todo todo, BindingResult result)
+    public String store(@Valid Todo todo, BindingResult result, HttpServletRequest request)
     {
         if (result.hasErrors()) {
             return "todos/create";
         }
 
-        
+        Principal principal = request.getUserPrincipal();
 
+        todo.setUsername(principal.getName());
 
+        this.todoRepository.save(todo);
 
         return "redirect:/todos";
     }
