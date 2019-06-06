@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/todos")
@@ -34,7 +33,7 @@ public class TodoController {
     }
 
     @GetMapping(value = {"/create", "/create/{id}"})
-    public String create(@PathVariable(required = false) Long id, Model model)
+    public String create(@PathVariable(required = false) Integer id, Model model)
     {
         Todo todo = id == null ? new Todo() : this.todoRepository.findById(id).orElse(new Todo());
 
@@ -44,7 +43,7 @@ public class TodoController {
     }
 
     @PostMapping(value = {"/store", "/store/{id}"})
-    public String store(@PathVariable(required = false) Long id, @Valid Todo todo, BindingResult result, HttpServletRequest request)
+    public String store(@PathVariable(required = false) Integer id, @Valid Todo todo, BindingResult result, HttpServletRequest request)
     {
         if (result.hasErrors()) {
             return "todos/create";
@@ -60,7 +59,7 @@ public class TodoController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Long id)
+    public String delete(@PathVariable Integer id)
     {
         this.todoRepository.deleteById(id);
 
