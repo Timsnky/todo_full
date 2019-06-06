@@ -1,9 +1,8 @@
 package appp.timsnky.todo_full.model;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
 @Table(name = "priorities")
@@ -14,10 +13,16 @@ public class Priority {
     private Integer id;
 
     @NotNull
-    @UniqueElements
     private String name;
 
+    @OneToMany(mappedBy = "priority")
+    private List<Todo> todos;
+
     public Priority() {
+    }
+
+    public Priority(String name) {
+        this.name = name;
     }
 
     public Integer getId() {
@@ -34,5 +39,13 @@ public class Priority {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Todo> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<Todo> todos) {
+        this.todos = todos;
     }
 }

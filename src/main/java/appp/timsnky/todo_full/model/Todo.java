@@ -21,6 +21,10 @@ public class Todo {
     @NotBlank(message = "Target date is required")
     private String targetDate;
 
+    @ManyToOne
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
+
     public Todo() {
         super();
     }
@@ -61,6 +65,14 @@ public class Todo {
 
     public void setTargetDate(String targetDate) {
         this.targetDate = targetDate;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
     }
 
     @Override

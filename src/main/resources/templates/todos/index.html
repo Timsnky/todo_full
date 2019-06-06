@@ -21,14 +21,16 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th width="40%">Description</th>
-                    <th width="40%">Target Date</th>
-                    <th width="20%">Actions</th>
+                    <th>Description</th>
+                    <th>Priority</th>
+                    <th>Target Date</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="todo : ${todos}">
                     <td th:text="${todo.description}"></td>
+                    <td th:text="${todo.priority.getName()}"></td>
                     <td th:text="${todo.targetDate}"></td>
                     <td>
                         <a class="btn btn-sm btn-info" th:href="@{~/todos/create/{id}(id=${todo.id})}">Update</a>

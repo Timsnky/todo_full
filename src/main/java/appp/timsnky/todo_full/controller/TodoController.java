@@ -1,6 +1,8 @@
 package appp.timsnky.todo_full.controller;
 
+import appp.timsnky.todo_full.model.Priority;
 import appp.timsnky.todo_full.model.Todo;
+import appp.timsnky.todo_full.repository.PriorityRepository;
 import appp.timsnky.todo_full.repository.TodoRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,11 @@ import java.util.List;
 public class TodoController {
 
     private TodoRepository todoRepository;
+    private PriorityRepository priorityRepository;
 
-    public TodoController(TodoRepository todoRepository) {
+    public TodoController(TodoRepository todoRepository, PriorityRepository priorityRepository) {
         this.todoRepository = todoRepository;
+        this.priorityRepository = priorityRepository;
     }
 
     @GetMapping("")
@@ -37,7 +41,11 @@ public class TodoController {
     {
         Todo todo = id == null ? new Todo() : this.todoRepository.findById(id).orElse(new Todo());
 
+        List<Priority> priorities = priorityRepository.findAll();
+
         model.addAttribute("todo", todo);
+
+        model.addAttribute("priorities", priorities);
 
         return "todos/create";
     }
@@ -52,6 +60,8 @@ public class TodoController {
         Principal principal = request.getUserPrincipal();
 
         todo.setUsername(principal.getName());
+
+        System.out.println(todo);
 
         this.todoRepository.save(todo);
 
