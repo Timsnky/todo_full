@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:insert="partials/fragments :: layout_header">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<head>
 </head>
 
 <body>
-<header th:insert="partials/fragments :: layout_navigation"></header>
 
-<div class="container">
-    <div>
-        <a class="btn btn-success" th:href="@{/todos/create/}">Add Todo</a>
-    </div>
-    <br>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3>List of TODO's</h3>
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Priority</th>
-                    <th>Target Date</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="todo : ${todos}">
-                    <td th:text="${todo.description}"></td>
-                    <td th:text="${todo.priority.getName()}"></td>
-                    <td th:text="${todo.targetDate}"></td>
-                    <td>
-                        <a class="btn btn-sm btn-info" th:href="@{~/todos/create/{id}(id=${todo.id})}">Update</a>
-                        <a class="btn btn-sm btn-warning" th:href="@{~/todos/delete/{id}(id=${todo.id})}">Delete</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<div layout:fragment="content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Todos</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <a class="btn btn-sm btn-primary" th:href="@{/todos/create/}">Add Todo</a>
+            </div>
         </div>
     </div>
 
+    <div class="container-fluid">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Priority</th>
+                        <th>Target Date</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="todo : ${todos}">
+                        <td th:text="${todo.description}"></td>
+                        <td th:text="${todo.priority.getName()}"></td>
+                        <td th:text="${todo.targetDate}"></td>
+                        <td>
+                            <a class="btn btn-sm btn-info" th:href="@{~/todos/create/{id}(id=${todo.id})}">Update</a>
+                            <a class="btn btn-sm btn-warning" th:href="@{~/todos/delete/{id}(id=${todo.id})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-<div th:insert="partials/fragments :: layout_footer"></div>
 </body>
 </html>

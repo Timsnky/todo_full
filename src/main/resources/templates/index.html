@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:insert="partials/fragments :: layout_header">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+<head>
 </head>
-
 <body>
-<header th:insert="partials/fragments :: layout_navigation"></header>
 
-<div class="container">
-    <div class="panel panel-primary jumbotron">
-        <div class="panel-heading">Dashboard</div>
-        <div class="panel-body">
-            Welcome <span sec:authentication="name"></span>!! <a href="/todos">Click here</a> to manage your todo's.
+<div layout:fragment="content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">Add</button>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="panel panel-primary jumbotron">
+            <div class="panel-body">
+                Welcome <span sec:authentication="name"></span>!! <a href="/todos">Click here</a> to manage your todo's.
+            </div>
         </div>
     </div>
 </div>
-
-<div th:insert="partials/fragments :: layout_footer"></div>
 </body>
 </html>

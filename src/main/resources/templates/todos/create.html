@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:insert="partials/fragments :: layout_header">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout/layout}">
+
+<head>
 </head>
 
 <body>
-<header th:insert="partials/fragments :: layout_navigation"></header>
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 ">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Add TODO</div>
+<div layout:fragment="content">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Add/Edit Todo</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group mr-2">
+                <a class="btn btn-sm btn-secondary" th:href="@{/todos/}">&larr;Back</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 ">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <form action="#" th:action="@{~/todos/store/{id}(id=${todo.id})}" th:object="${todo}" method="post">
+                            <div th:insert="layout/fragments/errors :: errors"></div>
 
-                <div class="panel-body">
-                    <form action="#" th:action="@{~/todos/store/{id}(id=${todo.id})}" th:object="${todo}" method="post">
-                        <div th:insert="/partials/fragments :: layout_errors"></div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <input type="text" th:field="*{description}" class="form-control" id="description" name="description"
+                                       placeholder="Description" >
+                            </div>
 
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <input type="text" th:field="*{description}" class="form-control" id="description" name="description"
-                                   placeholder="Description" >
-                        </div>
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select class="form-control" name="priority" id="priority">
+                                    <option th:each="priority : ${priorities}" th:value="${priority.id}"
+                                            th:text="${priority.name}" th:selected="${priority == todo.priority}"></option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="priority">Priority</label>
-                            <select class="form-control" name="priority" id="priority">
-                                <option th:each="priority : ${priorities}" th:value="${priority.id}"
-                                        th:text="${priority.name}" th:selected="${priority == todo.priority}"></option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="targetDate">Target Date</label>
-                            <input type="text" th:field="*{targetDate}" class="form-control" id="targetDate" name="targetDate"
-                                   placeholder="Target Date">
-                        </div>
+                            <div class="form-group">
+                                <label for="targetDate">Target Date</label>
+                                <input type="text" th:field="*{targetDate}" class="form-control" id="targetDate" name="targetDate"
+                                       placeholder="Target Date">
+                            </div>
 
 
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-success">Submit</button>
-                        </div>
-                    </form>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                            </div>
+                        </form>
 
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div th:insert="partials/fragments :: layout_footer"></div>
 </body>
 </html>
